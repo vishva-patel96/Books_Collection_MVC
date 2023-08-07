@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Books_Collection.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Books_Collection.Data
 {
@@ -8,5 +9,6 @@ namespace Books_Collection.Data
         {
 
         }
+        public DbSet<Category> Categories { get; set; }
     }
 }

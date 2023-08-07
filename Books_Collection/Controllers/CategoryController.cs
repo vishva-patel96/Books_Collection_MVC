@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Books_Collection.Data;
+using Books_Collection.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Books_Collection.Controllers
 {
     public class CategoryController : Controller
     {
+        private readonly ApplicationContext _db;
+        //get data from Categories table
+        public CategoryController(ApplicationContext db)
+        {
+                _db = db;
+        }
         public IActionResult Index()
         {
-            return View();
+            List<Category> objCategoryList = _db.Categories.ToList();
+            return View(objCategoryList);
         }
     }
 }

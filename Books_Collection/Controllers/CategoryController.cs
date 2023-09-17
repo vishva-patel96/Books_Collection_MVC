@@ -24,9 +24,20 @@ namespace Books_Collection.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            _db.Categories.Add(category);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            //Custom validation
+            if(category.DisplayOrder.ToString() == category.Name)
+            {
+                ModelState.AddModelError("name", "DisplayOrder cannot exactly match the Name.");
+            }
+            //server-side validation
+            if(ModelState.IsValid)
+            {
+                _db.Categories.Add(category);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
     }
 }

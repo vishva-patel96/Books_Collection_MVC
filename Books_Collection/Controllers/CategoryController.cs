@@ -31,8 +31,8 @@ namespace Books_Collection.Controllers
             {
                 ModelState.AddModelError("name", "DisplayOrder cannot exactly match the Name.");
             }
-            Category? CategoryfromDB = _db.Categories.FirstOrDefault(c => c.Name == category.Name);
-            if(CategoryfromDB.Name == category.Name)
+            Category CategoryfromDB = _db.Categories.FirstOrDefault(c => c.Name == category.Name);
+            if(CategoryfromDB != null &&  CategoryfromDB.Name == category.Name)
             {
                 ModelState.AddModelError("Name", "Name is already exist");
             }
@@ -54,25 +54,20 @@ namespace Books_Collection.Controllers
             {
                 return NotFound();
             }
-            Category categoryFromDb = _db.Categories.Find(id);
-            if (categoryFromDb == null)
+            Category? CategoryIDFromDB = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (CategoryIDFromDB == null)
             {
                 return NotFound();
             }
-            return View(categoryFromDb);
+            return View(CategoryIDFromDB);
         }
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(Category obj)
         {
-            //Custom validation
-            if (category.DisplayOrder.ToString() == category.Name)
-            {
-                ModelState.AddModelError("name", "DisplayOrder cannot exactly match the Name.");
-            }
             //server-side validation
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(category);
+                _db.Categories.Update(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }

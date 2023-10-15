@@ -42,12 +42,13 @@ namespace Books_Collection.Controllers
             {
                 _db.Categories.Add(category);
                 _db.SaveChanges();
+
+                TempData["success"] = "Category Created Successfully.";// TempData will show pop-up using 'success' key.
                 return RedirectToAction("Index");
             }
 
             return View();
         }
-        
         public IActionResult Edit(int? id)
         {
             if(id == null || id == 0)
@@ -61,6 +62,7 @@ namespace Books_Collection.Controllers
             }
             return View(CategoryIDFromDB);
         }
+
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
@@ -69,11 +71,13 @@ namespace Books_Collection.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Updated Successfully.";
                 return RedirectToAction("Index");
             }
 
             return View();
         }
+
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
@@ -87,6 +91,7 @@ namespace Books_Collection.Controllers
             }
             return View(CategoryIDFromDB);
         }
+
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
@@ -97,7 +102,7 @@ namespace Books_Collection.Controllers
             }
             _db.Categories.Remove(obj);
             _db.SaveChanges();
-
+            TempData["success"] = "Category Deleted Successfully.";
             return RedirectToAction("Index");
         }
     }

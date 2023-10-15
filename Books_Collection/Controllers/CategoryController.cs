@@ -31,7 +31,7 @@ namespace Books_Collection.Controllers
             {
                 ModelState.AddModelError("name", "DisplayOrder cannot exactly match the Name.");
             }
-            Category CategoryfromDB = _db.Categories.FirstOrDefault(c => c.Name == category.Name);
+            Category? CategoryfromDB = _db.Categories.FirstOrDefault(c => c.Name == category.Name);
             if(CategoryfromDB != null &&  CategoryfromDB.Name == category.Name)
             {
                 ModelState.AddModelError("Name", "Name is already exist");
@@ -73,6 +73,32 @@ namespace Books_Collection.Controllers
             }
 
             return View();
+        }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category? CategoryIDFromDB = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (CategoryIDFromDB == null)
+            {
+                return NotFound();
+            }
+            return View(CategoryIDFromDB);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? obj = _db.Categories.FirstOrDefault(x=> x.Id == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

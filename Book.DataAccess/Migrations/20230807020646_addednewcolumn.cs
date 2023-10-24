@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Books.DataAccess.Data;
 
 #nullable disable
 
-namespace Books_Collection.Migrations
+namespace Book.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class addednewcolumn : Migration

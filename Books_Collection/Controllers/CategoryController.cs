@@ -1,9 +1,10 @@
-﻿using Books_Collection.Data;
-using Books_Collection.Models;
+﻿using Books.DataAccess.Data;
+using Books.Models;
+using Books_Collection.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Books_Collection.Controllers
+namespace Book.DataAccess.Controllers
 {
     public class CategoryController : Controller
     {

@@ -1,8 +1,8 @@
-﻿using Books_Collection.Models;
+﻿using Books.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Books_Collection.Controllers
+namespace Book.DataAccess.Data
 {
     public class HomeController : Controller
     {
